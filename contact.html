@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="home.html"><img src="Assets/logo.png" alt="Parrilla Mexicana Logo"></a>
+    <ul class="navul">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="order.html">Order Now</a></li>
+      <li><a href="employeelogin.html">Employee Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-main">
+    <h1 class="page-title">Contact Us</h1>
+    <form class="form-card" id="contactForm">
+      <h2>Send a Message</h2>
+
+      <label for="contactName">Name</label>
+      <input id="contactName" type="text" required>
+
+      <label for="contactEmail">Email</label>
+      <input id="contactEmail" type="email" required>
+
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessage" required></textarea>
+
+      <button type="submit">Send Message</button>
+      <p id="contactStatus" class="status-message"></p>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <img src="Assets/logo.png" alt="Parrilla Mexicana Logo" class="footer-image">
+    <ul class="footerul">
+      <li><a href="employeelogin.html">Jobs</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </footer>
+
+  <script type="module" src="contact.js"></script>
+</body>
+</html>

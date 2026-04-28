@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order</title>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="order.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="home.html"><img src="Assets/logo.png" alt="Parrilla Mexicana Logo"></a>
+    <ul class="navul">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="employeelogin.html">Employee Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="order-page">
+    <aside class="cart-box">
+      <h2>Cart</h2>
+      <p>Items: <span id="cart-count">0</span></p>
+      <p>Subtotal: $<span id="cart-subtotal">0.00</span></p>
+      <p>NJ Tax: $<span id="cart-tax">0.00</span></p>
+      <p>Total: $<span id="cart-total">0.00</span></p>
+      <div id="cart-items" class="cart-items"></div>
+      <button id="checkout-btn" disabled>Checkout</button>
+    </aside>
+
+    <section class="menu-content">
+      <h1>Order Now</h1>
+      <div id="menu-list" class="menu-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="Assets/logo.png" alt="Parrilla Mexicana Logo" class="footer-image">
+    <ul class="footerul">
+      <li><a href="employeelogin.html">Jobs</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </footer>
+
+  <script type="module" src="order.js"></script>
+</body>
+</html>

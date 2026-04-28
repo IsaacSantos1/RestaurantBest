@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Portal</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="home.html"><img src="Assets/logo.png" alt="Parrilla Mexicana Logo"></a>
+    <ul class="navul">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="order.html">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="employee.html">Clock In/Out</a>
+        <a href="chef.html">Chef Orders</a>
+        <a href="management.html">Management</a>
+        <a href="inventory.html" class="active">Inventory</a>
+        <a href="accounting.html">Accounting</a>
+      </nav>
+    </aside>
+
+    <main class="page-main">
+      <h1 class="page-title">Inventory Portal</h1>
+
+      <section class="panel">
+        <h2>Add Inventory Item</h2>
+        <div class="grid two-col">
+          <input id="itemName" placeholder="Item name">
+          <input id="itemQuantity" type="number" min="0" placeholder="Quantity">
+          <input id="itemCost" type="number" min="0" step="0.01" placeholder="Cost per item">
+          <input id="itemMaxStock" type="number" min="1" placeholder="Max stock">
+        </div>
+        <button id="addItemBtn" style="margin-top:15px;">Add Item</button>
+        <p id="inventoryStatus" class="status-message"></p>
+      </section>
+
+      <section class="panel">
+        <h2>Items to Restock</h2>
+        <div id="restockList"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Items Currently Available</h2>
+        <div id="availableItems" class="grid two-col"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <img src="Assets/logo.png" alt="Parrilla Mexicana Logo" class="footer-image">
+    <ul class="footerul">
+      <li><a href="employeelogin.html">Jobs</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </footer>
+
+  <script type="module" src="inventory.js"></script>
+</body>
+</html>
