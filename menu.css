@@ -1,0 +1,39 @@
+/* Appetizer Section */
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #F7B130;
+    color: black;
+    padding: 50px 200px;
+}
+
+/* Main Course Section */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 50px 200px;
+    background-color: #3C6A50;
+    color: white;
+}
+
+/* Dessert Section */
+.dessert {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #8C3225;
+    color: white;
+    padding: 50px 200px;
+}
+
+/* Drinks Section */
+.drinks {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #3C6A50;
+    color: white;
+    padding: 50px 200px;
+}

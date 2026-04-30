@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Akronim&family=Black+And+White+Picture&family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -260,3 +261,115 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 }
+
+
+
+h1{
+    font-size:64px;
+    font-family: "Akronim", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+h2{
+  font-size:48px;
+  font-family: "Black And White Picture", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+h3{
+  font-size:40px;
+  font-family: "Inclusive Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+h4{
+    font-size:32px;
+    font-family: "Inclusive Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+p{
+  font-size:16px;
+  font-family: "Inclusive Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
+/*Tablet*/
+@media screen and (max-width:1260px) and (min-width:800px){
+    h1{
+        font-size:48px;
+        font-family: "Akronim", system-ui;
+        font-weight: 400;
+        font-style: normal;
+    }
+    h2{
+      font-size:40px;
+      font-family: "Black And White Picture", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
+    h3{
+      font-size:32px;
+      font-family: "Inclusive Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: normal;
+      font-style: normal;
+    }
+    h4{
+        font-size:24px;
+        font-family: "Inclusive Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: normal;
+        font-style: normal;
+    }
+    p{
+      font-size:14px;
+      font-family: "Inclusive Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: normal;
+      font-style: normal;
+    }
+}
+/*Phone*/
+@media screen and (max-width: 799px) {
+    h1{
+        font-size:24px;
+        font-family: "Akronim", system-ui;
+        font-weight: 400;
+        font-style: normal;
+    }
+    h2{
+      font-size:20px;
+      font-family: "Black And White Picture", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
+    h3{
+      font-size:16px;
+      font-family: "Inclusive Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: normal;
+      font-style: normal;
+    }
+    h4{
+        font-size:14px;
+        font-family: "Inclusive Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: normal;
+        font-style: normal;
+    }
+    p{
+      font-size:12px;
+      font-family: "Inclusive Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: normal;
+      font-style: normal;
+    }
+ }
