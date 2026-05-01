@@ -1,44 +1,59 @@
 import { db } from "./firebase-config.js";
-import { collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { formatDate, money } from "./shared.js";
 
-const activeEmployees = document.getElementById("activeEmployees");
-const employeeHoursList = document.getElementById("employeeHoursList");
-const orderStatusList = document.getElementById("orderStatusList");
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-onSnapshot(query(collection(db, "employeeHours"), orderBy("clockIn", "desc")), (snapshot) => {
-  const records = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  const active = records.filter((record) => !record.clockOut);
+const budgetAmount = document.getElementById("budgetAmount");
+const payrollAmount = document.getElementById("payrollAmount");
+const remainingBudget = document.getElementById("remainingBudget");
 
-  activeEmployees.innerHTML = active.length
-    ? active.map((record) => `<div class="card"><p><strong>${record.name}</strong> - ${record.position}</p><p>Clocked in: ${formatDate(record.clockIn)}</p></div>`).join("")
-    : "<p>No employees are currently clocked in.</p>";
+const STARTING_BUDGET = 1000;
+const HOURLY_RATE = 15;
 
-  employeeHoursList.innerHTML = records.length
-    ? records.map((record) => `
-      <div class="card">
-        <p><strong>${record.name}</strong> - ${record.position}</p>
-        <p>Status: ${record.status}</p>
-        <p>Clock In: ${formatDate(record.clockIn)}</p>
-        <p>Clock Out: ${formatDate(record.clockOut)}</p>
-        <p>Total Hours: ${record.totalHours ?? "In progress"}</p>
-        <p>Earnings: ${record.earnings ? money(record.earnings) : "In progress"}</p>
-      </div>
-    `).join("")
-    : "<p>No employee hours logged yet.</p>";
-});
+async function loadManagementData() {
+  let totalInventoryExpenses = 0;
+  let totalPayroll = 0;
 
-onSnapshot(query(collection(db, "orders"), orderBy("timestamp", "desc")), (snapshot) => {
-  const orders = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  // inventory expenses
+  const expensesSnapshot = await getDocs(collection(db, "expenses"));
 
-  orderStatusList.innerHTML = orders.length
-    ? orders.map((order) => `
-      <div class="card">
-        <p><strong>Order:</strong> ${order.id}</p>
-        <p>Customer: ${order.customerName}</p>
-        <p>Status: ${order.status || "In Progress"}</p>
-        <p>Total: ${money(order.totalAmount)}</p>
-      </div>
-    `).join("")
-    : "<p>No orders yet.</p>";
-});
+  expensesSnapshot.forEach((docSnap) => {
+    const expense = docSnap.data();
+
+    // this accepts BOTH amount and cost, just in case
+    const value = Number(expense.amount ?? expense.cost ?? 0);
+
+    totalInventoryExpenses += value;
+  });
+
+  // worker payroll
+  const shiftsSnapshot = await getDocs(collection(db, "shifts"));
+
+  shiftsSnapshot.forEach((docSnap) => {
+    const shift = docSnap.data();
+
+    if (shift.pay) {
+      totalPayroll += Number(shift.pay);
+    }
+
+    // live pay for workers still clocked in
+    if (shift.active && shift.clockIn) {
+      const hoursWorked = (Date.now() - Number(shift.clockIn)) / (1000 * 60 * 60);
+      totalPayroll += hoursWorked * HOURLY_RATE;
+    }
+  });
+
+  const totalSpent = totalInventoryExpenses + totalPayroll;
+  const budgetLeft = STARTING_BUDGET - totalSpent;
+
+  budgetAmount.textContent = "$" + totalInventoryExpenses.toFixed(2);
+  payrollAmount.textContent = "$" + totalPayroll.toFixed(2);
+  remainingBudget.textContent = "$" + budgetLeft.toFixed(2);
+}
+
+loadManagementData();
+
+// updates every 5 seconds so clocked-in worker pay moves live
+setInterval(loadManagementData, 5000);

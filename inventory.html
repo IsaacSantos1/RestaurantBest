@@ -6,9 +6,14 @@
   <title>Inventory Portal</title>
   <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
+
+  <!-- NAV -->
   <nav class="nav">
-    <a href="home.html"><img src="Assets/logo.png" alt="Parrilla Mexicana Logo"></a>
+    <a href="home.html">
+      <img src="Assets/logo.png" alt="Parrilla Mexicana Logo">
+    </a>
     <ul class="navul">
       <li><a href="home.html">Home</a></li>
       <li><a href="order.html">Order Now</a></li>
@@ -16,6 +21,8 @@
   </nav>
 
   <div class="page-layout">
+
+    <!-- SIDEBAR -->
     <aside class="sidebar">
       <nav class="sidebar-nav">
         <a href="employee.html">Clock In/Out</a>
@@ -26,33 +33,43 @@
       </nav>
     </aside>
 
+    <!-- MAIN -->
     <main class="page-main">
+
       <h1 class="page-title">Inventory Portal</h1>
 
+      <!-- ADD ITEM -->
       <section class="panel">
         <h2>Add Inventory Item</h2>
+
         <div class="grid two-col">
           <input id="itemName" placeholder="Item name">
           <input id="itemQuantity" type="number" min="0" placeholder="Quantity">
           <input id="itemCost" type="number" min="0" step="0.01" placeholder="Cost per item">
           <input id="itemMaxStock" type="number" min="1" placeholder="Max stock">
         </div>
+
         <button id="addItemBtn" style="margin-top:15px;">Add Item</button>
+
         <p id="inventoryStatus" class="status-message"></p>
       </section>
 
+      <!-- RESTOCK -->
       <section class="panel">
         <h2>Items to Restock</h2>
         <div id="restockList"></div>
       </section>
 
+      <!-- AVAILABLE ITEMS (THIS IS WHAT JS USES 🔥) -->
       <section class="panel">
         <h2>Items Currently Available</h2>
         <div id="availableItems" class="grid two-col"></div>
       </section>
+
     </main>
   </div>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <img src="Assets/logo.png" alt="Parrilla Mexicana Logo" class="footer-image">
     <ul class="footerul">
@@ -62,6 +79,8 @@
     </ul>
   </footer>
 
+  <!-- SCRIPT (IMPORTANT AT BOTTOM 🔥) -->
   <script type="module" src="inventory.js"></script>
+
 </body>
 </html>
