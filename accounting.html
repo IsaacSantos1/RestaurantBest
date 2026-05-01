@@ -6,6 +6,7 @@
   <title>Accounting</title>
   <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
   <nav class="nav">
     <a href="home.html"><img src="Assets/logo.png" alt="Parrilla Mexicana Logo"></a>
@@ -30,13 +31,27 @@
       <h1 class="page-title">Accounting Dashboard</h1>
 
       <section class="panel">
-        <h2>Total Revenue</h2>
-        <h1 id="totalRevenue" style="text-align:center;">$0.00</h1>
+        <h2>Financial Overview</h2>
+        <p>Total Revenue: <strong id="totalRevenue">$0.00</strong></p>
+        <p>Inventory Expenses: <strong id="inventoryExpenses">$0.00</strong></p>
+        <p>Payroll Expenses: <strong id="payrollExpenses">$0.00</strong></p>
+        <p>Total Expenses: <strong id="totalExpenses">$0.00</strong></p>
+        <p>Net Profit: <strong id="netProfit">$0.00</strong></p>
       </section>
 
       <section class="panel">
-        <h2>Purchase History</h2>
-        <div id="purchaseHistory"></div>
+        <h2>Order History</h2>
+        <div id="orderHistory"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Expense History</h2>
+        <div id="expenseHistory"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Payroll History</h2>
+        <div id="payrollHistory"></div>
       </section>
     </main>
   </div>
