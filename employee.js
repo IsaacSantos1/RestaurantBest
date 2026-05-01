@@ -4,54 +4,82 @@ import {
   addDoc,
   updateDoc,
   doc,
-  getDocs,
+  getDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-const clockBtn = document.getElementById("clock-btn");
-const nameInput = document.getElementById("employee-name");
+const clockInBtn = document.getElementById("clockInBtn");
+const clockOutBtn = document.getElementById("clockOutBtn");
+const nameInput = document.getElementById("employeeName");
+const positionSelect = document.getElementById("employeePosition");
+const statusMessage = document.getElementById("employeeStatus");
 
-let activeShift = null;
+let activeShiftId = null;
 
-// CLOCK IN / OUT
-clockBtn.addEventListener("click", async () => {
-  const name = nameInput.value;
+// CLOCK IN
+clockInBtn.addEventListener("click", async () => {
+  const name = nameInput.value.trim();
+  const position = positionSelect.value;
 
-  if (!name) return alert("enter name");
+  if (!name || !position) {
+    alert("Please enter your name and select a position.");
+    return;
+  }
 
-  // CLOCK IN
-  if (!activeShift) {
+  try {
+    // Add a new shift document to Firestore
     const docRef = await addDoc(collection(db, "shifts"), {
       name,
+      position,
       clockIn: Date.now(),
-      active: true
+      active: true,
+      createdAt: serverTimestamp()
     });
 
-    activeShift = docRef.id;
-    clockBtn.innerText = "Clock Out";
+    activeShiftId = docRef.id;
+    statusMessage.textContent = `Status: Clocked In as ${position}.`;
+    clockInBtn.disabled = true;
+    clockOutBtn.disabled = false;
+  } catch (error) {
+    console.error("Error clocking in:", error);
+    statusMessage.textContent = "Error: Unable to clock in. Please try again.";
+  }
+});
 
-  } else {
-    // CLOCK OUT
-    const ref = doc(db, "shifts", activeShift);
+// CLOCK OUT
+clockOutBtn.addEventListener("click", async () => {
+  if (!activeShiftId) {
+    alert("You are not currently clocked in.");
+    return;
+  }
 
-    const snapshot = await getDocs(collection(db, "shifts"));
-    snapshot.forEach(async (d) => {
-      if (d.id === activeShift) {
-        const shift = d.data();
+  try {
+    const shiftRef = doc(db, "shifts", activeShiftId);
+    const shiftSnap = await getDoc(shiftRef);
 
-        const hours = (Date.now() - shift.clockIn) / (1000 * 60 * 60);
-        const pay = hours * 15;
+    if (!shiftSnap.exists()) {
+      alert("Shift not found. Please contact an administrator.");
+      return;
+    }
 
-        await updateDoc(ref, {
-          clockOut: Date.now(),
-          hours,
-          pay,
-          active: false
-        });
-      }
+    const shiftData = shiftSnap.data();
+    const hoursWorked = (Date.now() - shiftData.clockIn) / (1000 * 60 * 60); // Calculate hours worked
+    const pay = hoursWorked * 15; // Assuming $15/hour pay rate
+
+    // Update the shift document in Firestore
+    await updateDoc(shiftRef, {
+      clockOut: Date.now(),
+      hours: hoursWorked,
+      pay,
+      active: false
     });
 
-    activeShift = null;
-    clockBtn.innerText = "Clock In";
+    statusMessage.textContent = `Status: Clocked Out. Total Hours: ${hoursWorked.toFixed(2)}, Pay: $${pay.toFixed(2)}.`;
+    clockInBtn.disabled = false;
+    clockOutBtn.disabled = true;
+    activeShiftId = null;
+  } catch (error) {
+    console.error("Error clocking out:", error);
+    statusMessage.textContent = "Error: Unable to clock out. Please try again.";
   }
 });
